@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ Logged in
+<a class="dropdown-item" href="{% url 'logout' %}" id="logout"> Logout </a>
+{% for customer in customers %}
+ {{ customer.Name }}
+{% endfor %}
+</body>
+</html>
