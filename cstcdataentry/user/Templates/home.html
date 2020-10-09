@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
  Logged in
 <a class="dropdown-item" href="{% url 'logout' %}" id="logout"> Logout </a>
 
 <a href="{% url 'customers' %}">Customer list</a>
 <a href="{% url 'subscriptions' %}">All Subscriptions</a>
-<a href="{% url 'customers' %}">Add new customer</a>
+<a href="{% url 'addcustomers' %}">Add new customer</a>
 <a href="{% url 'subscriptions' %}">Record payment</a>
-</body>
-</html>
+{% endblock content %}

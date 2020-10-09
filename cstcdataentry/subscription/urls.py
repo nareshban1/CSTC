@@ -4,7 +4,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    path('/subscription', views.subscription_list, name='subscriptions'),
+    path('subscription', views.subscription_list, name='subscriptions'),
 
 
 ]
