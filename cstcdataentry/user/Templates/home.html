@@ -1,10 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
- Logged in
-<a class="dropdown-item" href="{% url 'logout' %}" id="logout"> Logout </a>
 
-<a href="{% url 'customers' %}">Customer list</a>
-<a href="{% url 'subscriptions' %}">All Subscriptions</a>
-<a href="{% url 'addcustomers' %}">Add new customer</a>
-<a href="{% url 'subscriptions' %}">Record payment</a>
+
+
+<div class="card-deck p-3 m-auto text-center dash">
+  <div class="card rounded">
+    <div class="card-body">
+      <h5 class="card-title">Total Clients</h5>
+      <p class="card-text">650</p>
+    </div>
+  </div>
+  <div class="card rounded">
+    <div class="card-body">
+      <h5 class="card-title">Total Amount Earned</h5>
+      <p class="card-text">Rs. 80000 </p>
+    </div>
+  </div>
+  <div class="card rounded">
+    <div class="card-body ">
+      <h5 class="card-title"> Total Users </h5>
+      <p class="card-text"> 1000</p>
+    </div>
+  </div>
+</div>
+
 {% endblock content %}

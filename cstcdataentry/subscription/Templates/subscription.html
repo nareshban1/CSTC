@@ -1,8 +1,50 @@
 {% extends "base.html" %}
+
 {% block content %}
- Logged in
-<a class="dropdown-item" href="{% url 'logout' %}" id="logout"> Logout </a>
-{% for subscription in subscribtions %}
- {{ subscription.InstallDate}}
-{% endfor %}
+
+{% block javascript %}
+<script>
+ $(document).ready(function() {
+    $('#datatable').DataTable();
+ } );
+</script>
+{% endblock javascript %}
+
+<div class="col-lg px-5 py-3 tablecontent">
+    <h1>Subscription List</h1>
+    <table id="datatable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Subscription ID</th>
+                <th>Company Name</th>
+                <th>Client ID</th>
+                <th>No Of Installation</th>
+                <th>Install Date</th>
+                <th>Expiry Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for subscription in subscriptions %}
+            <tr>
+                <td><a href="{%url 'subscriptiondetail' subscription.id %}">{{ subscription.id }}</a></td>
+                <td>{{ subscription.CustomerName }}</td>
+                <td>{{ subscription.CustomerName.id }}</td>
+                <td>{{ subscription.Installation_number }}</td>
+                <td>{{ subscription.InstallDate }}</td>
+                <td>{{ subscription.ExpiryDate }}</td>
+                <td>
+                    {% if subscription.RemainingAmount > 0 %}
+                        Pending
+                    {% else %}
+                        Completed
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+</table>
+</div>
+
+
 {% endblock content %}

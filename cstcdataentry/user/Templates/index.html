@@ -1,46 +1,71 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Collegefinder| Log in </title>
-    </head>
-    <body>
-        <section class="content">
-             <div class="container">
-                <div class="row">
-                  <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                    <div class="card card-signin my-5">
-                      <div class="card-body">
-                        <h5 class="card-title text-center">Log In</h5>
-                        <form class="form-signin" action="{% url 'index' %}" method="post">
-                            {% csrf_token %}
+<head>
+    {% load static %}
+	<title>CSTC | Log in </title>
+	<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,700;1,500;1,900&display=swap" rel="stylesheet">
+</head>
 
-                            {% if messages %}
-                                {% for message in messages %}
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ message }}
-                                        </div>
-                                {% endfor %}
-
-
-                            {% endif %}
-                              <div class="form-label-group">
-
-                                <input type="text" class="form-control" id="username" name="username" placeholder="Username"required autofocus>
-
-                                <br><br>
-                              </div>
-
-                              <div class="form-label-group">
-                                <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
-                                <br><br>
-                              </div>
-                              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
-                        </form>
-                      </div>
+<body>
+        <img class="wave" src="{% static 'wave.png' %}">
+        <div class="container-fluid-expand-lg mainpage">
+            <nav class="navbar navbar-expand-lg na navbar-trans">
+               <h1 class="text text-decoration-none logo  " >CSTC Software Solutions</h1>
+            </nav>
+            <div class="container-fluid my-5">
+                <div class="row justify-content-center w-100 m-auto">
+                    <div class="col-md-6 p-0 img m-auto ">
+                       <img class="img-fluid m-auto" src="{% static 'vector.png' %}" >
                     </div>
-                  </div>
-                </div>
-              </div>
-        </section>
+                    <div class="col-md-6 p-0 d-flex mb-5  content">
+                        <div class="m-auto ">
+                            <div class="login-content">
+                                <form action="{% url 'index' %}" method="post">
+									{% csrf_token %}
+                                    <img src="{% static 'image 1.png' %}">
+                                    <h2 class="title">User Login</h2>
+
+                                       <div class="input-div one">
+                                          <div class="i">
+                                                  <i class="fas fa-user"></i>
+                                          </div>
+                                          <div class="div">
+                                                  <input type="text" class="input" name="username" placeholder="Username"required autofocus>
+                                          </div>
+                                       </div>
+                                       <div class="input-div pass">
+                                          <div class="i">
+                                               <i class="fas fa-lock"></i>
+                                          </div>
+                                          <div class="div">
+                                               <input type="password" class="input" name="password" placeholder="Password" required>
+                                       </div>
+                                    </div>
+									<a href="#" class="for" style="text-decoration: none;">Forgot Password?</a>
+                                    <input type="submit" class="btnn" value="Login">
+									{% if messages %}
+										{% for message in messages %}
+											<div class="alert alert-danger" role="alert">
+												{{ message }}
+											</div>
+										{% endfor %}
+									{% endif %}
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+
+        </div>
     </body>
 </html>
-

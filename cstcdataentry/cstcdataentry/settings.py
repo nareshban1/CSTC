@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'user',
     'customer',
     'subscription',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -107,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
+DATE_FORMAT = "dd/mm/yyyy"
 TIME_ZONE = 'UTC'
 
 USE_I18N = True

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% block javascript %}
+<script>
+  $(function () {
+
+     document.getElementById('id_InstallDate').addEventListener('input', function() {
+        var startDate_string = $("#id_InstallDate").val();
+        var years_string = $("#id_InstallDuration").val();
+        var years  = parseFloat( years_string )
+        var startDate = moment(startDate_string);
+        var endDate = startDate.add( years, 'years').format('YYYY-MM-DD');
+        $("#id_ExpiryDate").val(endDate);
+
+    });
+
+    document.getElementById('id_InstallDuration').addEventListener('input', function() {
+      var years_string = $("#id_InstallDuration").val();
+      var startDate_string = $("#id_InstallDate").val();
+      var years  = parseFloat( years_string )
+      var startDate = moment(startDate_string);
+      var endDate = startDate.add( years, 'years').format('YYYY-MM-DD');
+      $("#id_ExpiryDate").val(endDate);
+    });
+
+    document.getElementById('id_TotalAmount').addEventListener('input', function() {
+        var total = $("#id_TotalAmount").val();
+        var received = $("#id_AmountReceived").val();
+        var remaining = parseFloat(total) - parseFloat(received )
+        $("#id_RemainingAmount").val(remaining);
+
+    });
+
+    document.getElementById('id_AmountReceived').addEventListener('input', function() {
+        var total = $("#id_TotalAmount").val();
+        var received = $("#id_AmountReceived").val();
+        var remaining = parseFloat(total) - parseFloat(received )
+        $("#id_RemainingAmount").val(remaining);
+
+    });
+
+  });
+
+
+
+
+  </script>
+{% endblock %}
+
+<div class="col-10 px-5 py-3 ">
+    <h1>New Subscription</h1>
+    <form method="post" class="w-75 ">
+        {% csrf_token %}
+        {{ form.CustomerName| as_crispy_field }}
+        <div class="form-row">
+          <div class="form-group col-md-6 mb-0">
+            {{ form.Installation_number|as_crispy_field }}
+          </div>
+          <div class="form-group col-md-6 mb-0">
+            {{ form.InstallDuration|as_crispy_field }}
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6 mb-0">
+            {{ form.InstallDate|as_crispy_field }}
+          </div>
+          <div class="form-group col-md-6 mb-0">
+            {{ form.ExpiryDate|as_crispy_field }}
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4 mb-0">
+            {{ form.TotalAmount|as_crispy_field }}
+          </div>
+          <div class="form-group col-md-4 mb-0">
+              {{ form.AmountReceived|as_crispy_field }}
+          </div>
+            <div class="form-group col-md-4 mb-0">
+              {{ form.RemainingAmount|as_crispy_field }}
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Create New Subscription</button>
+    </form>
+</div>
+{% endblock content %}
