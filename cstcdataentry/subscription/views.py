@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import newsubscription, subscriptionUpdate
+from .forms import newsubscription, subscriptionUpdate, renewform
 from .models import Subscription
 # Create your views here.
 
@@ -23,7 +23,7 @@ def new_subscription(request):
         newsubscription_form = newsubscription(request.POST or None)
         if newsubscription_form.is_valid():
             newsubscription_form.save()
-            return HttpResponseRedirect('newsubscription')
+            return HttpResponseRedirect('subscriptions')
 
 
 
@@ -50,3 +50,22 @@ def subscriptionDetail(request,id):
         'sub':sub,
     }
     return render(request,'subscriptiondetail.html', context)
+
+
+
+@login_required(login_url='index')
+def renew(request,id):
+    sub = Subscription.objects.get(id=id)
+    if request.method == 'GET':
+        renew_form = renewform()
+    else:
+        renew_form =renewform(request.POST)
+        if renew_form.is_valid():
+           renew_form.save()
+           return HttpResponseRedirect('subscriptions')
+
+    context = {
+        'form': renew_form,
+        'sub':sub,
+    }
+    return render(request,'renew.html', context)

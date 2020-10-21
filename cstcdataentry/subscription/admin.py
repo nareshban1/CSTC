@@ -4,3 +4,4 @@ from subscription import models
 
 
 admin.site.register(models.Subscription)
+admin.site.register(models.Renew)

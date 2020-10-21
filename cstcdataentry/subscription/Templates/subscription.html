@@ -29,14 +29,21 @@
         </thead>
         <tbody>
         {% for subscription in subscriptions %}
-
-            <tr>
+            {% if subscription.ExpiryDate|days_until <= 20  %}
+                {% if subscription.ExpiryDate|days_until <= 0 %}
+                <tr class="expired">
+                {% else %}
+                <tr class="warn">
+                {% endif %}
+            {% else %}
+                <tr class="online">
+            {% endif %}
                 <td><a href="{%url 'subscriptiondetail' subscription.id %}">{{ subscription.id }}</a></td>
                 <td>{{ subscription.CustomerName }}</td>
                 <td>{{ subscription.CustomerName.id }}</td>
                 <td>{{ subscription.Installation_number }}</td>
                 <td>{{ subscription.InstallDate }}</td>
-                <td id="{{ subscription.id }}">{{ subscription.ExpiryDate }}</td>
+                <td >{{ subscription.ExpiryDate }}</td>
                 <td >
                     {% if subscription.RemainingAmount > 0 %}
                         {% if subscription.ExpiryDate|days_until <= 0 %}

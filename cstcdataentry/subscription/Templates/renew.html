@@ -2,42 +2,40 @@
 {% load crispy_forms_tags %}
 {% block content %}
 {% block javascript %}
-
 <script>
   $(function () {
-    var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-    var expiryDate_string = $("#id_ExpiryDate").val();
-    var startDate = moment(utc);
-    var endDate = moment(expiryDate_string);
+     document.getElementById('id_RenewDate').addEventListener('input', function() {
+        var startDate_string = $("#id_RenewDate").val();
+        var years_string = $("#id_InstallDuration").val();
+        var years  = parseFloat( years_string )
+        var startDate = moment(startDate_string);
+        var endDate = startDate.add( years, 'years').format('YYYY-MM-DD');
+        $("#id_ExpiryDate").val(endDate);
 
-    $("span#days-remaining").html(endDate.diff(startDate, 'days'));
-    var remain = $("#id_RemainingAmount").val();
+    });
 
-    if(remain > 0){
-    $("span#amount-remaining").html(remain)
-    document.getElementById("notifyremaining").style.display = "block";
-    }
-    else{
-    document.getElementById("notifyremaining").style.display = "none";
-    }
-    var prev= $("#id_AmountReceived").val();
-    var previous = prev;
+    document.getElementById('id_InstallDuration').addEventListener('input', function() {
+      var years_string = $("#id_InstallDuration").val();
+      var startDate_string = $("#id_RenewDate").val();
+      var years  = parseFloat( years_string )
+      var startDate = moment(startDate_string);
+      var endDate = startDate.add( years, 'years').format('YYYY-MM-DD');
+      $("#id_ExpiryDate").val(endDate);
+    });
 
-    document.getElementById('AmountReceived').addEventListener('input', function() {
+    document.getElementById('id_TotalAmount').addEventListener('input', function() {
         var total = $("#id_TotalAmount").val();
+        var received = $("#id_AmountReceived").val();
+        var remaining = parseFloat(total) - parseFloat(received )
+        $("#id_RemainingAmount").val(remaining);
 
-        var remaining = $("#id_RemainingAmount").val();
-        var received = $("#AmountReceived").val();
-        if(document.getElementById("AmountReceived").value.length == 0)
-        {
-            received = 0;
-            $("#id_AmountReceived").val(prev);
-        }
+    });
 
-        var totalpaid = parseFloat(previous) + parseFloat(received)
-        var remaini= parseFloat(total) - parseFloat(totalpaid )
-        $("#id_AmountReceived").val(totalpaid);
-        $("#id_RemainingAmount").val(remaini);
+    document.getElementById('id_AmountReceived').addEventListener('input', function() {
+        var total = $("#id_TotalAmount").val();
+        var received = $("#id_AmountReceived").val();
+        var remaining = parseFloat(total) - parseFloat(received )
+        $("#id_RemainingAmount").val(remaining);
 
     });
 
@@ -48,30 +46,27 @@
 
   </script>
 {% endblock %}
-<h1 class="row mx-5 py-3">Subscription Details</h1>
+<h1 class="row mx-5 py-3">Renew Subscription</h1>
 
 <div class="row mx-5 ">
   <div class="col-sm-7 p-0 py-2 pr-3"><form method="post" class="w-100 ">
             {% csrf_token %}
             <div id="div_id_Name" class="form-group">
-                <label for="id_CompanyName" class=" requiredField">
-                    Company Name<span class="asteriskField">*</span>
+                <label for="id_subscription" class=" requiredField">
+                    Subscription<span class="asteriskField">*</span>
                 </label>
                     <div class="">
-                        <input type="text" name="Name" maxlength="250" class="textinput textInput form-control" required="" id="id_CompanyName" value="{{ sub.CustomerName.Name }}" readonly >
+                        <input type="text" name="Name" maxlength="250" class="textinput textInput form-control" required="" id="id_subscription" value="{{ sub.id }}" readonly >
                     </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-6 mb-0">
-                {{ form.Installation_number|as_crispy_field }}
-              </div>
-              <div class="form-group col-md-6 mb-0">
+                <div class="form-group col-md-6 mb-0">
                 {{ form.InstallDuration|as_crispy_field }}
-              </div>
+                </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6 mb-0">
-                {{ form.InstallDate|as_crispy_field }}
+                {{ form.RenewDate|as_crispy_field }}
               </div>
               <div class="form-group col-md-6 mb-0">
                 {{ form.ExpiryDate|as_crispy_field }}
@@ -115,19 +110,10 @@
                   {{ form.RemainingAmount|as_crispy_field }}
               </div>
             </div>
-            <a href="{% url 'renewsubs' sub.id %}" class="btn btn-primary">Renew Subscription</a>
+            <button type="submit" class="btn btn-primary">Renew Subscription</button>
 
             {% endif %}
 
         </form></div>
-  <div class="col-sm-5  px-0 py-2 ">
-        Notifications
-        <div class="alert  mt-1 alert-info" role="alert">
-          <span id="days-remaining"></span> days remaining in this subscription.
-        </div>
-        <div class="alert alert-danger" role="alert" id="notifyremaining">
-           <span id="amount-remaining"></span> amount remaining to receive for this subscription.
-        </div>
-  </div>
-</div>
+
 {% endblock content %}

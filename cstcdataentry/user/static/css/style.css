@@ -249,6 +249,9 @@ form {
     font-size:20px;
 }
 
+.online {
+   background-color:#afff94;
+}
 @media screen and (max-width: 900px) {
 	.img {
 		display: none;
