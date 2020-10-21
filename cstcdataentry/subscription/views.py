@@ -23,7 +23,7 @@ def new_subscription(request):
         newsubscription_form = newsubscription(request.POST or None)
         if newsubscription_form.is_valid():
             newsubscription_form.save()
-            return HttpResponseRedirect('subscriptions')
+            return HttpResponseRedirect('/subscription')
 
 
 
@@ -61,8 +61,15 @@ def renew(request,id):
     else:
         renew_form =renewform(request.POST)
         if renew_form.is_valid():
+
+           sub.ExpiryDate=renew_form.cleaned_data['ExpiryDate']
+           sub.TotalAmount = renew_form.cleaned_data['TotalAmount']
+           sub.RemainingAmount = renew_form.cleaned_data['RemainingAmount']
+           sub.AmountReceived=renew_form.cleaned_data['AmountReceived']
+           sub.InstallDuration = renew_form.cleaned_data['InstallDuration']
            renew_form.save()
-           return HttpResponseRedirect('subscriptions')
+           sub.save();
+           return HttpResponseRedirect('/subscription')
 
     context = {
         'form': renew_form,

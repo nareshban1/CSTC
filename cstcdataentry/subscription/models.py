@@ -14,8 +14,6 @@ class Subscription(models.Model):
     RemainingAmount = models.FloatField(blank=False, default=0, validators=[MinValueValidator(0)])
 
 
-    def __str__(self):
-        return '{}-{}-{}'.format(self.CustomerName.Name, str(self.Installation_number), self.InstallDate)
 
 class Renew(models.Model):
     Subscription= models.ForeignKey(Subscription, on_delete=models.CASCADE, related_name='subs')

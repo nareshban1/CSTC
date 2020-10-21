@@ -38,7 +38,6 @@ class renewform(forms.ModelForm):
     class Meta:
         model= Renew
         fields = "__all__"
-        exclude = ['Subscription']
         widgets = {'ExpiryDate': TextInput(attrs={'readonly': True, }),
                    'RenewDate': TextInput(attrs={'type': 'Date', }),
                    'InstallDuration': TextInput(attrs={'min': '0', }),

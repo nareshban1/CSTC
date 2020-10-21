@@ -38,7 +38,7 @@
             {% else %}
                 <tr class="online">
             {% endif %}
-                <td><a href="{%url 'subscriptiondetail' subscription.id %}">{{ subscription.id }}</a></td>
+                <td><a href="{%url 'subscriptiondetail' subscription.id %}">{{ subscription.id |stringformat:"05d" }}</a></td>
                 <td>{{ subscription.CustomerName }}</td>
                 <td>{{ subscription.CustomerName.id }}</td>
                 <td>{{ subscription.Installation_number }}</td>

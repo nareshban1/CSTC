@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Customer(models.Model):
+    ClientID = models.CharField(max_length=10,default="")
     Name = models.CharField(max_length=250)
     Address1 = models.CharField(max_length=150)
     Address2 = models.CharField(max_length=150, blank=True)

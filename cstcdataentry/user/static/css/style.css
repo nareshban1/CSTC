@@ -252,6 +252,12 @@ form {
 .online {
    background-color:#afff94;
 }
+.warn {
+   background-color:#f6ff94;
+}
+.expired{
+   background-color:#ff9494;
+}
 @media screen and (max-width: 900px) {
 	.img {
 		display: none;
