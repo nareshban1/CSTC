@@ -242,6 +242,13 @@ form {
     width:100px;
 }
 
+.cdetail{
+    font-size:24px;
+}
+.cdtitle{
+    font-size:20px;
+}
+
 @media screen and (max-width: 900px) {
 	.img {
 		display: none;
@@ -260,3 +267,4 @@ form {
 
 	}
 }
+

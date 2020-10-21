@@ -28,7 +28,7 @@
         {% for customer in customers %}
             <tr>
                 <td><a href="{%url 'customerdetail' customer.id %}">{{ customer.id }}</a></td>
-                <td>{{ customer.Name  }}</td>
+                <td><a href="{%url 'customerdetail' customer.id %}">{{ customer.Name  }}</a></td>
                 <td>{{ customer.City }}</td>
                 <td>{{ customer.Contact_Person }}</td>
                 <td>{{ customer.Email }}</td>

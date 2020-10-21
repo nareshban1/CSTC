@@ -8,6 +8,7 @@ from .models import Subscription
 @login_required(login_url='index')
 def subscription_list(request):
     obj = Subscription.objects.all()
+
     context = {
         'subscriptions': obj,
     }
