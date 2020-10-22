@@ -1,18 +1,60 @@
-from django.http import HttpResponseRedirect
+import datetime
+import csv
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import newsubscription, subscriptionUpdate, renewform
-from .models import Subscription
+from .models import Subscription, Renew
 # Create your views here.
+
+
+def is_valid_queryparam(param):
+    return param != '' and param is not None
+
 
 @login_required(login_url='index')
 def subscription_list(request):
     obj = Subscription.objects.all()
+    days = None
+    expiryfilter = request.GET.get('expiryfilter')
+
+    if is_valid_queryparam(expiryfilter):
+        days = int(expiryfilter)
+        start_date = datetime.date.today()
+        end_date = start_date + datetime.timedelta(days=days)
+        obj = obj.filter(ExpiryDate__range=[start_date, end_date])
 
     context = {
         'subscriptions': obj,
+        'days':days,
     }
     return render(request,'subscription.html',context)
+
+
+@login_required(login_url='index')
+def report(request,days):
+    obj = Subscription.objects.all()
+    if is_valid_queryparam(days) and days != "None":
+        output = []
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="expiry.csv"'
+        writer = csv.writer(response)
+        day = int(days)
+        start_date = datetime.date.today()
+        end_date = start_date + datetime.timedelta(days=day)
+        obj = obj.filter(ExpiryDate__range=[start_date, end_date])
+        query_set = obj
+        # Header
+        writer.writerow(
+            ['Subscription ID', 'Company Name', 'Client ID', 'No Of Installation', 'Install Date', 'Expiry Date'])
+        for subscription in query_set:
+            output.append([subscription.id, subscription.CustomerName, subscription.CustomerName.id,
+                             subscription.Installation_number, subscription.InstallDate, subscription.ExpiryDate])
+         # CSV Data
+        writer.writerows(output)
+        return response
+    else:
+        return HttpResponseRedirect('/subscription')
 
 @login_required(login_url='index')
 def new_subscription(request):
@@ -22,7 +64,16 @@ def new_subscription(request):
     else:
         newsubscription_form = newsubscription(request.POST or None)
         if newsubscription_form.is_valid():
-            newsubscription_form.save()
+            n=newsubscription_form.save()
+            ren = Renew()
+            ren.Subscription=Subscription.objects.get(id=n.pk)
+            ren.RenewDate = newsubscription_form.cleaned_data['InstallDate']
+            ren.ExpiryDate = newsubscription_form.cleaned_data['ExpiryDate']
+            ren.TotalAmount = newsubscription_form.cleaned_data['TotalAmount']
+            ren.RemainingAmount = newsubscription_form.cleaned_data['RemainingAmount']
+            ren.AmountReceived = newsubscription_form.cleaned_data['AmountReceived']
+            ren.InstallDuration = newsubscription_form.cleaned_data['InstallDuration']
+            ren.save()
             return HttpResponseRedirect('/subscription')
 
 
@@ -35,6 +86,7 @@ def new_subscription(request):
 @login_required(login_url='index')
 def subscriptionDetail(request,id):
     sub = Subscription.objects.get(id=id)
+    ren = Renew.objects.filter(Subscription=id)
     if request.method == 'GET':
         subscription_update= subscriptionUpdate(instance= sub)
     else:
@@ -48,6 +100,7 @@ def subscriptionDetail(request,id):
     context = {
         'form': subscription_update,
         'sub':sub,
+        'renews':ren,
     }
     return render(request,'subscriptiondetail.html', context)
 

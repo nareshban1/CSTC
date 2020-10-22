@@ -4,13 +4,28 @@
 {% block javascript %}
 
 <script>
+ $(document).ready(function() {
+    $('#datatable').DataTable();
+ });
+
   $(function () {
     var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
     var expiryDate_string = $("#id_ExpiryDate").val();
     var startDate = moment(utc);
     var endDate = moment(expiryDate_string);
+    var rdays = endDate.diff(startDate, 'days');
 
-    $("span#days-remaining").html(endDate.diff(startDate, 'days'));
+
+    if(rdays > 0){
+    $("span#days-remaining").html(rdays);
+    document.getElementById("remainingdays").style.display = "block";
+    document.getElementById("expiry").style.display = "none";
+    }
+    else{
+    document.getElementById("remainingdays").style.display = "none";
+    document.getElementById("expiry").style.display = "block";
+    }
+
     var remain = $("#id_RemainingAmount").val();
 
     if(remain > 0){
@@ -122,12 +137,55 @@
         </form></div>
   <div class="col-sm-5  px-0 py-2 ">
         Notifications
-        <div class="alert  mt-1 alert-info" role="alert">
+        <div class="alert  mt-1 alert-info" role="alert" id="remainingdays">
           <span id="days-remaining"></span> days remaining in this subscription.
+        </div>
+        <div class="alert  mt-1 alert-info" role="alert" id="expiry">
+            This subscription has expired.
         </div>
         <div class="alert alert-danger" role="alert" id="notifyremaining">
            <span id="amount-remaining"></span> amount remaining to receive for this subscription.
         </div>
   </div>
+</div>
+{% load myfilters %}
+<div class="col-lg px-5 py-3 tablecontent">
+    <h1>History</h1>
+    <table id="datatable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Renew ID</th>
+                <th>Installation Duration</th>
+                <th>Renew Date</th>
+                <th>Expiry Date</th>
+                <th>Expiry Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for renew in renews %}
+            {% if renew.ExpiryDate|days_until <= 20  %}
+                {% if renew.ExpiryDate|days_until <= 0 %}
+                <tr class="expired">
+                {% else %}
+                <tr class="warn">
+                {% endif %}
+            {% else %}
+                <tr class="online">
+            {% endif %}
+                <td>{{ renew.id |stringformat:"05d" }}</a></td>
+                <td>{{ renew.InstallDuration}}</td>
+                <td>{{ renew.RenewDate }}</td>
+                <td >{{ renew.ExpiryDate }}</td>
+                <td>
+                    {% if renew.ExpiryDate|days_until <= 0 %}
+                        Expired
+                    {% else %}
+                        Online
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+</table>
 </div>
 {% endblock content %}

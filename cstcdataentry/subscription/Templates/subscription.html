@@ -13,7 +13,26 @@
 {% endblock javascript %}
 {% load myfilters %}
 <div class="col-lg px-5 py-3 tablecontent">
+
     <h1>Subscription List</h1>
+
+    <div class="col my-4">
+            <div class="row justify-content-end">
+                <form class="col-2 " method="GET">
+                    <div class="row">
+                        <div class="col-lg col p-0 ">
+                            <input class="form-control" name="expiryfilter" type="number" value="" id="days-input">
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-secondary " >Filter Expiry</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="col p-0">
+                    <a  href="{%url 'report' days  %}" class="btn btn-info float-right" >Download</a>
+                </div>
+            </div>
+    </div>
     <table id="datatable" class="display" style="width:100%">
         <thead>
             <tr>
