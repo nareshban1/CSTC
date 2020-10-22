@@ -86,7 +86,7 @@ def new_subscription(request):
 @login_required(login_url='index')
 def subscriptionDetail(request,id):
     sub = Subscription.objects.get(id=id)
-    ren = Renew.objects.filter(Subscription=id)
+    ren = Renew.objects.filter(Subscription=id).order_by('-id')
     if request.method == 'GET':
         subscription_update= subscriptionUpdate(instance= sub)
     else:
