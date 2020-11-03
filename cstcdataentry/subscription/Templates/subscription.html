@@ -1,91 +1,85 @@
 {% extends "base.html" %}
-
 {% block content %}
-
 {% block javascript %}
 <script>
- $(document).ready(function() {
-    $('#datatable').DataTable();
- });
+   $(document).ready(function() {
+      $('#datatable').DataTable();
+   });
 
 
 </script>
 {% endblock javascript %}
 {% load myfilters %}
 <div class="col-lg px-5 py-3 tablecontent">
-
-    <h1>Subscription List</h1>
-
-    <div class="col my-4">
-            <div class="row justify-content-end">
-                <form class="col-2 " method="GET">
-                    <div class="row">
-                        <div class="col-lg col p-0 ">
-                            <input class="form-control" name="expiryfilter" type="number" value="" id="days-input">
-                        </div>
-                        <div class="col">
-                            <button type="submit" class="btn btn-secondary " >Filter Expiry</button>
-                        </div>
-                    </div>
-                </form>
-                <div class="col p-0">
-                    <a  href="{%url 'report' days  %}" class="btn btn-info float-right" >Download</a>
-                </div>
+   <h1>Subscription List</h1>
+   <div class="col my-4">
+      <div class="row justify-content-end">
+         <form class="col-2 " method="GET">
+            <div class="row">
+               <div class="col-lg col p-0 ">
+                  <input class="form-control" name="expiryfilter" type="number" value="" id="days-input">
+               </div>
+               <div class="col">
+                  <button type="submit" class="btn btn-secondary " >Filter Expiry</button>
+               </div>
             </div>
-    </div>
-    <table id="datatable" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Subscription ID</th>
-                <th>Company Name</th>
-                <th>Client ID</th>
-                <th>No Of Installation</th>
-                <th>Install Date</th>
-                <th>Expiry Date</th>
-                <th>Payment Status</th>
-                <th>Expiry Status</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for subscription in subscriptions %}
-            {% if subscription.ExpiryDate|days_until <= 20  %}
-                {% if subscription.ExpiryDate|days_until <= 0 %}
-                <tr class="expired">
-                {% else %}
-                <tr class="warn">
-                {% endif %}
-            {% else %}
-                <tr class="online">
+         </form>
+         <div class="col p-0">
+            <a  href="{%url 'report' days  %}" class="btn btn-primary  float-right" >Download</a>
+         </div>
+      </div>
+   </div>
+   <table id="datatable" class="display" style="width:100%">
+      <thead>
+         <tr>
+            <th>Subscription ID</th>
+            <th>Company Name</th>
+            <th>Client ID</th>
+            <th>No Of Installation</th>
+            <th>Install Date</th>
+            <th>Expiry Date</th>
+            <th>Payment Status</th>
+            <th>Expiry Status</th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for subscription in subscriptions %}
+             {% if subscription.ExpiryDate|days_until <= 20  %}
+                 {% if subscription.ExpiryDate|days_until <= 0 %}
+                     <tr class="expired">
+                 {% else %}
+                     <tr class="warn">
+                 {% endif %}
+             {% else %}
+                 <tr class="online">
             {% endif %}
-                <td><a href="{%url 'subscriptiondetail' subscription.id %}">{{ subscription.id |stringformat:"05d" }}</a></td>
-                <td>{{ subscription.CustomerName }}</td>
-                <td>{{ subscription.CustomerName.id }}</td>
-                <td>{{ subscription.Installation_number }}</td>
-                <td>{{ subscription.InstallDate }}</td>
-                <td >{{ subscription.ExpiryDate }}</td>
-                <td >
-                    {% if subscription.RemainingAmount > 0 %}
-                        {% if subscription.ExpiryDate|days_until <= 0 %}
-                            OverDue
-                        {% else %}
-                            Pending
-                        {% endif %}
-                    {% else %}
-                        Completed
-                    {% endif %}
-                </td>
-                <td>
-                    {% if subscription.ExpiryDate|days_until <= 0 %}
-                        Expired
-                    {% else %}
-                        Online
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-</table>
+            <td><a href="{%url 'subscriptiondetail' subscription.id %}">{{ subscription.id |stringformat:"05d" }}</a></td>
+            <td>{{ subscription.CustomerName }}</td>
+            <td>{{ subscription.CustomerName.id }}</td>
+            <td>{{ subscription.Installation_number }}</td>
+            <td>{{ subscription.InstallDate }}</td>
+            <td >{{ subscription.ExpiryDate }}</td>
+            <td >
+               {% if subscription.RemainingAmount > 0 %}
+                   {% if subscription.ExpiryDate|days_until <= 0 %}
+                        OverDue
+                   {% else %}
+                        Pending
+                   {% endif %}
+                {% else %}
+                   Completed
+               {% endif %}
+            </td>
+            <td>
+               {% if subscription.ExpiryDate|days_until <= 0 %}
+                    Expired
+               {% else %}
+                    Online
+               {% endif %}
+            </td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
 </div>
-
-
 {% endblock content %}

@@ -87,13 +87,17 @@ def new_subscription(request):
 def subscriptionDetail(request,id):
     sub = Subscription.objects.get(id=id)
     ren = Renew.objects.filter(Subscription=id).order_by('-id')
+    renu= Renew.objects.filter(Subscription=id).latest('id')
     if request.method == 'GET':
         subscription_update= subscriptionUpdate(instance= sub)
     else:
         subscription_update = subscriptionUpdate(request.POST,instance= sub)
         if subscription_update.is_valid():
             subscription_update.save()
-            return render(request,'subscriptiondetail.html', {'form': subscription_update,'sub':sub,})
+            renu.RemainingAmount = subscription_update.cleaned_data['RemainingAmount']
+            renu.AmountReceived = subscription_update.cleaned_data['AmountReceived']
+            renu.save()
+            return render(request,'subscriptiondetail.html', {'form': subscription_update,'sub':sub, 'renews':ren,})
 
 
 

@@ -1,89 +1,118 @@
 {% extends "base.html" %}
-
 {% block content %}
-
 {% block javascript %}
 <script>
- $(document).ready(function() {
-    $('#datatable').DataTable();
- } );
+   $(document).ready(function() {
+      $('#datatable').DataTable();
+   } );
 </script>
 {% endblock javascript %}
-
 <div class="col-lg px-5 py-3 tablecontent">
-    <h1 class="p-0">Customer Details</h1>
-    <div class="col-8 p-0 cdetail">
-        <div class="row py-1">
-            <div class="col"> <snap class="cdtitle">Customer ID:  </snap>{{ customer.ClientID}}</div>
-        </div>
-        <div class="row py-1 ">
-            <div class="col"> <snap class="cdtitle">Customer Name: </snap>{{ customer.Name  }}</div>
-        </div>
-        <div class="row  py-1">
-            <div class="col"><snap class="cdtitle">Address 1: </snap>{{ customer.Address1 }}</div>
-            <div class="col"><snap class="cdtitle">Address 2:</snap> {{ customer.Address2  }}</div>
-        </div>
-        <div class="row  py-1">
-            <div class="col"><snap class="cdtitle">City: </snap>{{ customer.City  }}</div>
-            <div class="col"><snap class="cdtitle">District: </snap> {{ customer.District  }}</div>
-            <div class="col"><snap class="cdtitle">Zone:  </snap>{{ customer.Zone }}</div>
-        </div>
-        <div class="row py-1 ">
-            <div class="col"><snap class="cdtitle">PhoneNo: </snap>{{ customer.PhoneNo }}</div>
-            <div class="col"><snap class="cdtitle">District:</snap> {{ customer.Email  }}</div>
-        </div>
-        <div class="row  py-1">
-            <div class="col"><snap class="cdtitle">Website:</snap> {{ customer.Website  }}</div>
-        </div>
-        <fieldset class="border">
-            <legend class="w-auto p-0">Contact Person Details:</legend>
-            <div class="row  py-1">
-                <div class="col"><snap class="cdtitle">Name:  </snap>{{ customer.Contact_Person  }}</div>
+   <h1 class="p-0">Customer Details</h1>
+   <div class="col-8 p-0 cdetail">
+      <div class="row py-1">
+         <div class="col">
+            <snap class="cdtitle">Customer ID:  </snap>
+            {{ customer.ClientID}}
+         </div>
+      </div>
+      <div class="row py-1 ">
+         <div class="col">
+            <snap class="cdtitle">Customer Name: </snap>
+            {{ customer.Name  }}
+         </div>
+      </div>
+      <div class="row  py-1">
+         <div class="col">
+            <snap class="cdtitle">Address 1: </snap>
+            {{ customer.Address1 }}
+         </div>
+         <div class="col">
+            <snap class="cdtitle">Address 2:</snap>
+            {{ customer.Address2  }}
+         </div>
+      </div>
+      <div class="row  py-1">
+         <div class="col">
+            <snap class="cdtitle">City: </snap>
+            {{ customer.City  }}
+         </div>
+         <div class="col">
+            <snap class="cdtitle">District: </snap>
+            {{ customer.District  }}
+         </div>
+         <div class="col">
+            <snap class="cdtitle">Zone:  </snap>
+            {{ customer.Zone }}
+         </div>
+      </div>
+      <div class="row py-1 ">
+         <div class="col">
+            <snap class="cdtitle">PhoneNo: </snap>
+            {{ customer.PhoneNo }}
+         </div>
+         <div class="col">
+            <snap class="cdtitle">District:</snap>
+            {{ customer.Email  }}
+         </div>
+      </div>
+      <div class="row  py-1">
+         <div class="col">
+            <snap class="cdtitle">Website:</snap>
+            {{ customer.Website  }}
+         </div>
+      </div>
+      <fieldset class="border">
+         <legend class="w-auto p-0">Contact Person Details:</legend>
+         <div class="row  py-1">
+            <div class="col">
+               <snap class="cdtitle">Name:  </snap>
+               {{ customer.Contact_Person  }}
             </div>
-            <div class="row  py-1">
-                <div class="col"><snap class="cdtitle">MobileNo:</snap> {{ customer.Contact_Person_MobileNo  }}</div>
-                <div class="col"><snap class="cdtitle">Email:</snap> {{ customer.Contact_Person_Email  }}</div>
+         </div>
+         <div class="row  py-1">
+            <div class="col">
+               <snap class="cdtitle">MobileNo:</snap>
+               {{ customer.Contact_Person_MobileNo  }}
             </div>
-        </fieldset>
-
-    </div>
-    <a type="button" href="{%url 'customerupdate' customer.id %}" class="btn btn-primary my-3 ">Update Customer Details</a>
-
-
-        <div class="col-12 p-0 mt-3 tablecontent">
-            <h1>Subscription List</h1>
-            <table id="datatable" class="display" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Subscription ID</th>
-                        <th>No Of Installation</th>
-                        <th>Install Date</th>
-                        <th>Expiry Date</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for subs in subscription %}
-                    <tr>
-                        <td><a href="{%url 'subscriptiondetail' subs.id %}">{{ subs.id }}</a></td>
-                        <td>{{ subs.Installation_number }}</td>
-                        <td>{{ subs.InstallDate }}</td>
-                        <td>{{ subs.ExpiryDate }}</td>
-                        <td>
-                            {% if subs.RemainingAmount > 0 %}
-                                Pending
-                            {% else %}
-                                Completed
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-        </table>
-        </div>
-
+            <div class="col">
+               <snap class="cdtitle">Email:</snap>
+               {{ customer.Contact_Person_Email  }}
+            </div>
+         </div>
+      </fieldset>
+   </div>
+   <a type="button" href="{%url 'customerupdate' customer.id %}" class="btn btn-primary my-3 ">Update Customer Details</a>
+   <div class="col-12 p-0 mt-3 tablecontent">
+      <h1>Subscription List</h1>
+      <table id="datatable" class="display" style="width:100%">
+         <thead>
+            <tr>
+               <th>Subscription ID</th>
+               <th>No Of Installation</th>
+               <th>Install Date</th>
+               <th>Expiry Date</th>
+               <th>Status</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for subs in subscription %}
+            <tr>
+               <td><a href="{%url 'subscriptiondetail' subs.id %}">{{ subs.id }}</a></td>
+               <td>{{ subs.Installation_number }}</td>
+               <td>{{ subs.InstallDate }}</td>
+               <td>{{ subs.ExpiryDate }}</td>
+               <td>
+                  {% if subs.RemainingAmount > 0 %}
+                        Pending
+                  {% else %}
+                        Completed
+                  {% endif %}
+               </td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
 </div>
-
-
-
 {% endblock content %}

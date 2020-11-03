@@ -1,71 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head>
-    {% load static %}
-	<title>CSTC | Log in </title>
-	<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,700;1,500;1,900&display=swap" rel="stylesheet">
-</head>
-
-<body>
-        <img class="wave" src="{% static 'wave.png' %}">
-        <div class="container-fluid-expand-lg mainpage">
-            <nav class="navbar navbar-expand-lg na navbar-trans">
-               <h1 class="text text-decoration-none logo  " >CSTC Software Solutions</h1>
-            </nav>
-            <div class="container-fluid my-5">
-                <div class="row justify-content-center w-100 m-auto">
-                    <div class="col-md-6 p-0 img m-auto ">
-                       <img class="img-fluid m-auto" src="{% static 'vector.png' %}" >
-                    </div>
-                    <div class="col-md-6 p-0 d-flex mb-5  content">
-                        <div class="m-auto ">
-                            <div class="login-content">
-                                <form action="{% url 'index' %}" method="post">
-									{% csrf_token %}
-                                    <img src="{% static 'image 1.png' %}">
-                                    <h2 class="title">User Login</h2>
-
-                                       <div class="input-div one">
-                                          <div class="i">
-                                                  <i class="fas fa-user"></i>
-                                          </div>
-                                          <div class="div">
-                                                  <input type="text" class="input" name="username" placeholder="Username"required autofocus>
-                                          </div>
-                                       </div>
-                                       <div class="input-div pass">
-                                          <div class="i">
-                                               <i class="fas fa-lock"></i>
-                                          </div>
-                                          <div class="div">
-                                               <input type="password" class="input" name="password" placeholder="Password" required>
-                                       </div>
-                                    </div>
-									<a href="#" class="for" style="text-decoration: none;">Forgot Password?</a>
-                                    <input type="submit" class="btnn" value="Login">
-									{% if messages %}
-										{% for message in messages %}
-											<div class="alert alert-danger" role="alert">
-												{{ message }}
-											</div>
-										{% endfor %}
-									{% endif %}
-
-                                </form>
-                            </div>
+   <head>
+      {% load static %}
+      <title>CSTC | Log in </title>
+      <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+      <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+      <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+      <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,700;1,500;1,900&display=swap" rel="stylesheet">
+   </head>
+   <body>
+      <section id="cover" class="min-vh-100">
+         <div id="cover-caption">
+            <div class="container">
+               <div class="row ">
+                  <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto p-5 text-left shadow-lg bg-white form p-4">
+                     <h1 class=" logo mb-4">CSTC <br> Software Solutions</h1>
+                     <h2 class="title mb-5">Log in</h2>
+                     <form action="{% url 'index' %}" method="post" class="justify-content-center">
+                        {% csrf_token %}
+                        <div class="form-group">
+                           <label class="sr-only">Username</label>
+                           <input type="text" class="w-100 input p-2 mb-2 bg-white" name="username" placeholder="Username"required autofocus>
                         </div>
-                    </div>
+                        <div class="form-group">
+                           <label class="sr-only">Password</label>
+                           <input type="password" class="w-100 input  p-2 bg-white" name="password" placeholder="Password" required>
+                        </div>
+                        <input type="submit" class="button w-100 mt-4 mb-2 rounded" value="Login">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-danger" role="alert">
+                                   {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                     </form>
+                  </div>
                </div>
             </div>
-
-        </div>
-    </body>
+         </div>
+      </section>
+   </body>
 </html>

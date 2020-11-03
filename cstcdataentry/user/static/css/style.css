@@ -8,264 +8,213 @@ body {
 	font-family: 'Jost', sans-serif;
 }
 
-.wave {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	height: 100%;
-	width: 50%;
-	z-index: -1;
-}
-
 .mainpage {
 	height: 100%;
 }
 
-form {
-	width: 400px;
-}
-
-.img {
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-}
-
-.login-content {
+#cover {
 	font-family: 'Jost', sans-serif;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-}
-
-.login-content img {
-	height: 150px;
-}
-
-.login-content h2 {
-	font-family: 'Jost', sans-serif;
-	font-weight: 500;
-	margin: 15px 0;
-	color: #333;
-	text-transform: uppercase;
-	font-size: 2.9rem;
-}
-
-.login-content .input-div {
-	position: relative;
-	display: grid;
-	grid-template-columns: 7% 93%;
-	margin: 25px 0;
-	padding: 5px 0;
-	border-bottom: 2px solid #32be8f;
-}
-
-.login-content .input-div.one {
-	margin-top: 0;
-}
-
-.i {
-	color: #d9d9d9;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.i i {
-	transition: .3s;
-}
-
-.input-div>div {
-	position: relative;
-	height: 45px;
-}
-
-.input-div>div>h5 {
-	position: absolute;
-	left: 10px;
-	top: 50%;
-	transform: translateY(-50%);
-	color: #999;
-	font-size: 18px;
-	transition: .3s;
-}
-
-.input-div:before,
-.input-div:after {
-	content: '';
-	position: absolute;
-	bottom: -2px;
-	width: 0%;
-	height: 2px;
-	background-color: #38d39f;
-	transition: .4s;
-}
-
-.input-div:before {
-	right: 50%;
-}
-
-.input-div:after {
-	left: 50%;
-}
-
-.input-div.focus:before,
-.input-div.focus:after {
-	width: 50%;
-}
-
-.input-div.focus>div>h5 {
-	top: -5px;
-	font-size: 15px;
-}
-
-.input-div.focus>.i>i {
-	color: #38d39f;
-}
-
-.input-div>div>input {
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
+	background: url('/static/wave.png') center no-repeat;
+	background-size: cover;
 	height: 100%;
-	border: none;
-	outline: none;
-	background: transparent;
-	padding: 0.5rem 0.7rem;
-	font-size: 1.2rem;
-	color: black;
-	font-family: 'Jost', sans-serif;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	position: relative;
 }
 
-.input-div.pass {
-	margin-bottom: 4px;
-}
-
-.for{
-	display: block;
-	text-align: right;
-	text-decoration: none;
-	color: #999;
-	font-size: 0.9rem;
-	transition: .3s;
-}
-
-.for:hover{
-    color: #38d39f;
-}
-
-
-.btnn {
-	display: block;
+#cover-caption {
 	width: 100%;
-	height: 50px;
-	border-radius: 25px;
-	outline: none;
-	border:none;
-	background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
-	background-size: 200%;
-	font-size: 1.5rem;
-	color: #fff;
-	font-family: 'Jost', sans-serif;
-	text-transform: uppercase;
-	margin: 1rem 0;
-	cursor: pointer;
-	transition: .5s;
+	position: relative;
+	z-index: 1;
 }
 
-.btnn:hover {
-	background-position: right;
+.form {
+	height: 600px;
 }
 
 .logo {
+	font-size: 40px;
 	color: #32be8f;
-	padding-left:50px;
+	font-family: 'Jost', sans-serif;
+}
+
+.title {
+	color: #707070
+}
+
+.input {
+	height: 60px;
+	background-color: white;
+}
+
+.button {
+	border: none;
+	font-size: 30px;
+	height: 50px;
+	color: white;
+	background-color: #32be8f;
+	font-family: 'Jost', sans-serif;
+}
+
+.button:hover {
+	border: solid 1px #32be8f;
+	color: #32be8f;
+	background-color: white;
+}
+
+.dbtn {
+	border: none;
+	font-size: 30px;
+	height: 50px;
+	color: white;
+	background-color: #32be8f;
 	font-family: 'Jost', sans-serif;
 }
 
 .navlogo {
-    color:white;
-    font-size:24px;
+	padding: 0;
+	color: white;
+	font-size: 35px;
 }
 
-
-.tablecontent , .dash {
-    font-family: 'Jost', sans-serif;
-
+.navlogo:hover {
+	color: #32be8f;
 }
-.dash .card-title{
-    font-size:25px;
-    color:red;
+
+.tablecontent,
+.dash {
+	font-family: 'Jost', sans-serif;
 }
-.dash .card-text{
-    font-size:30px;
+
+.dash .card-title {
+	font-size: 25px;
+	color: red;
+}
+
+.dash .card-text {
+	font-size: 30px;
 }
 
 #body-row {
-    width:100%;
-    margin:auto;
-
+	width: 100%;
+	margin: auto;
 }
+
 #sidebar-container {
-    height: 100%;
-    background-color: #292b2c ;
-    padding: 0;
-    position:fixed;
-    width: 140px;
-    overflow-x: scroll;
-    z-index: 1;
-
+	height: 100%;
+	background-color: #454748;
+	padding: 20px;
+	position: fixed;
+	width: 350px;
+	overflow-x: hidden;
+	z-index: 1;
 }
 
-.viewcontents{
-    margin-left:140px;
-
+.viewcontents {
+	margin-left: 350px;
 }
+
 
 /* Menu item*/
-#sidebar-container .list-group a {
-    height: 100px;
-    color: white;
-    background-color: #333;
+
+#sidebar-container .list-group {
+	margin-top: 25px;
 }
 
-#sidebar-container .list-group :hover{
-    color:#32be8f;
+.menus {
+	border-radius: 5px;
+	text-decoration: none;
+	padding: 12px 25px;
+	margin-top: 20px;
+	font-size: 26px;
+	height: 65px;
+	color: white;
+	background-color: #32be8f;
 }
 
-.nav{
-    background-color:#32be8f;
+.activee {
+	border-radius: 5px;
+	text-decoration: none;
+	padding: 12px 25px;
+	margin-top: 20px;
+	font-size: 26px;
+	height: 65px;
+	color: #32be8f;
+	background-color: white;
 }
 
-.btn-logout{
-    width:100px;
+.menus:hover {
+	text-decoration: none;
+	background-color: white;
+	color: #32be8f;
 }
 
-.cdetail{
-    font-size:24px;
+.activee:hover {
+	text-decoration: none;
+	background-color: #32be8f;
+	color: white;
 }
-.cdtitle{
-    font-size:20px;
+
+.loginpage {
+	height: 100vh;
+}
+
+.btn-logout {
+	height: 55px;
+	font-size: 26px;
+	padding: 8px;
+	text-decoration: none;
+	border: none;
+}
+
+.btn-logout:hover {
+	text-decoration: none;
+}
+
+.cdetail {
+	font-size: 24px;
+}
+
+.cdtitle {
+	font-size: 20px;
 }
 
 .online {
-   background-color:#afff94;
+	background-color: #afff94;
 }
+
 .warn {
-   background-color:#f6ff94;
+	background-color: #f6ff94;
 }
-.expired{
-   background-color:#ff9494;
+
+.expired {
+	background-color: #ff9494;
 }
+
+.btn-primary,
+
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+	background-color: #32be8f !important;
+	border-color: #32be8f !important;
+}
+.btn-primary:hover{
+    background-color: white !important;
+    color:#32be8f !important;
+	border-color: #32be8f !important;
+
+}
+
 @media screen and (max-width: 900px) {
 	.img {
 		display: none;
 	}
 	.logo {
-	    padding:0;
+		padding: 0;
 		margin: auto;
-		font-size:36px;
+		font-size: 36px;
 	}
 	.wave {
 		display: none;
@@ -273,7 +222,5 @@ form {
 	.content {
 		justify-content: center;
 		margin-top: 100px;
-
 	}
 }
-

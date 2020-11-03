@@ -2,190 +2,188 @@
 {% load crispy_forms_tags %}
 {% block content %}
 {% block javascript %}
-
 <script>
- $(document).ready(function() {
-    $('#datatable').DataTable();
- });
+   $(document).ready(function() {
+      $('#datatable').DataTable();
+   });
 
-  $(function () {
-    var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-    var expiryDate_string = $("#id_ExpiryDate").val();
-    var startDate = moment(utc);
-    var endDate = moment(expiryDate_string);
-    var rdays = endDate.diff(startDate, 'days');
+    $(function () {
+      var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+      var expiryDate_string = $("#id_ExpiryDate").val();
+      var startDate = moment(utc);
+      var endDate = moment(expiryDate_string);
+      var rdays = endDate.diff(startDate, 'days');
 
 
-    if(rdays > 0){
-    $("span#days-remaining").html(rdays);
-    document.getElementById("remainingdays").style.display = "block";
-    document.getElementById("expiry").style.display = "none";
-    }
-    else{
-    document.getElementById("remainingdays").style.display = "none";
-    document.getElementById("expiry").style.display = "block";
-    }
+      if(rdays > 0){
+      $("span#days-remaining").html(rdays);
+      document.getElementById("remainingdays").style.display = "block";
+      document.getElementById("expiry").style.display = "none";
+      }
+      else{
+      document.getElementById("remainingdays").style.display = "none";
+      document.getElementById("expiry").style.display = "block";
+      }
 
-    var remain = $("#id_RemainingAmount").val();
+      var remain = $("#id_RemainingAmount").val();
 
-    if(remain > 0){
-    $("span#amount-remaining").html(remain)
-    document.getElementById("notifyremaining").style.display = "block";
-    }
-    else{
-    document.getElementById("notifyremaining").style.display = "none";
-    }
-    var prev= $("#id_AmountReceived").val();
-    var previous = prev;
+      if(remain > 0){
+      $("span#amount-remaining").html(remain)
+      document.getElementById("notifyremaining").style.display = "block";
+      }
+      else{
+      document.getElementById("notifyremaining").style.display = "none";
+      }
+      var prev= $("#id_AmountReceived").val();
+      var previous = prev;
 
-    document.getElementById('AmountReceived').addEventListener('input', function() {
-        var total = $("#id_TotalAmount").val();
+      document.getElementById('AmountReceived').addEventListener('input', function() {
+          var total = $("#id_TotalAmount").val();
 
-        var remaining = $("#id_RemainingAmount").val();
-        var received = $("#AmountReceived").val();
-        if(document.getElementById("AmountReceived").value.length == 0)
-        {
-            received = 0;
-            $("#id_AmountReceived").val(prev);
-        }
+          var remaining = $("#id_RemainingAmount").val();
+          var received = $("#AmountReceived").val();
+          if(document.getElementById("AmountReceived").value.length == 0)
+          {
+              received = 0;
+              $("#id_AmountReceived").val(prev);
+          }
 
-        var totalpaid = parseFloat(previous) + parseFloat(received)
-        var remaini= parseFloat(total) - parseFloat(totalpaid )
-        $("#id_AmountReceived").val(totalpaid);
-        $("#id_RemainingAmount").val(remaini);
+          var totalpaid = parseFloat(previous) + parseFloat(received)
+          var remaini= parseFloat(total) - parseFloat(totalpaid )
+          $("#id_AmountReceived").val(totalpaid);
+          $("#id_RemainingAmount").val(remaini);
+
+      });
 
     });
 
-  });
 
 
 
 
-  </script>
+</script>
 {% endblock %}
 <h1 class="row mx-5 py-3">Subscription Details</h1>
-
 <div class="row mx-5 ">
-  <div class="col-sm-7 p-0 py-2 pr-3"><form method="post" class="w-100 ">
-            {% csrf_token %}
-            <div id="div_id_Name" class="form-group">
-                <label for="id_CompanyName" class=" requiredField">
-                    Company Name<span class="asteriskField">*</span>
-                </label>
-                    <div class="">
-                        <input type="text" name="Name" maxlength="250" class="textinput textInput form-control" required="" id="id_CompanyName" value="{{ sub.CustomerName.Name }}" readonly >
-                    </div>
+   <div class="col-sm-7 p-0 py-2 pr-3">
+      <form method="post" class="w-100 ">
+         {% csrf_token %}
+         <div id="div_id_Name" class="form-group">
+            <label for="id_CompanyName" class=" requiredField">
+            Company Name<span class="asteriskField">*</span>
+            </label>
+            <div class="">
+               <input type="text" name="Name" maxlength="250" class="textinput textInput form-control" required="" id="id_CompanyName" value="{{ sub.CustomerName.Name }}" readonly >
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-6 mb-0">
-                {{ form.Installation_number|as_crispy_field }}
-              </div>
-              <div class="form-group col-md-6 mb-0">
-                {{ form.InstallDuration|as_crispy_field }}
-              </div>
+         </div>
+         <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+               {{ form.Installation_number|as_crispy_field }}
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-6 mb-0">
-                {{ form.InstallDate|as_crispy_field }}
-              </div>
-              <div class="form-group col-md-6 mb-0">
-                {{ form.ExpiryDate|as_crispy_field }}
-              </div>
+            <div class="form-group col-md-6 mb-0">
+               {{ form.InstallDuration|as_crispy_field }}
             </div>
-            {% if sub.RemainingAmount > 0 %}
-            <div class="form-row">
-              <div class="form-group col-md-6 mb-0">
-                {{ form.TotalAmount|as_crispy_field }}
-              </div>
-
-                <div class="form-group col-md-6 mb-0">
-                  {{ form.RemainingAmount|as_crispy_field }}
-              </div>
+         </div>
+         <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+               {{ form.InstallDate|as_crispy_field }}
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6 mb-0">
-                  {{ form.AmountReceived|as_crispy_field }}
-                </div>
-              <div class="form-group col-md-6 mb-0">
-                <div id="Amount" class="form-group">
-                <label for="AmountReceived" class=" requiredField">
-                   Add payment<span class="asteriskField">*</span>
-                </label>
-                    <div class="">
-                        <input type="number" name="add payment" value="0" min="0" max= " {{ sub.RemainingAmount }}"class="textinput textInput form-control"  id="AmountReceived">
-                    </div>
-                </div>
-              </div>
+            <div class="form-group col-md-6 mb-0">
+               {{ form.ExpiryDate|as_crispy_field }}
             </div>
-            <button type="submit" class="btn btn-primary">Update Subscription</button>
-            {% else %}
-            <div class="form-row">
-              <div class="form-group col-md-4 mb-0">
-                {{ form.TotalAmount|as_crispy_field }}
-              </div>
-              <div class="form-group col-md-4 mb-0">
-                  {{ form.AmountReceived|as_crispy_field }}
-              </div>
-                <div class="form-group col-md-4 mb-0">
-                  {{ form.RemainingAmount|as_crispy_field }}
-              </div>
+         </div>
+         {% if sub.RemainingAmount > 0 %}
+         <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+               {{ form.TotalAmount|as_crispy_field }}
             </div>
-            <a href="{% url 'renewsubs' sub.id %}" class="btn btn-primary">Renew Subscription</a>
-
-            {% endif %}
-
-        </form></div>
-  <div class="col-sm-5  px-0 py-2 ">
-        Notifications
-        <div class="alert  mt-1 alert-info" role="alert" id="remainingdays">
-          <span id="days-remaining"></span> days remaining in this subscription.
-        </div>
-        <div class="alert  mt-1 alert-info" role="alert" id="expiry">
-            This subscription has expired.
-        </div>
-        <div class="alert alert-danger" role="alert" id="notifyremaining">
-           <span id="amount-remaining"></span> amount remaining to receive for this subscription.
-        </div>
-  </div>
+            <div class="form-group col-md-6 mb-0">
+               {{ form.RemainingAmount|as_crispy_field }}
+            </div>
+         </div>
+         <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+               {{ form.AmountReceived|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+               <div id="Amount" class="form-group">
+                  <label for="AmountReceived" class=" requiredField">
+                  Add payment<span class="asteriskField">*</span>
+                  </label>
+                  <div class="">
+                     <input type="number" name="add payment" value="0" min="0" max= " {{ sub.RemainingAmount }}"class="textinput textInput form-control"  id="AmountReceived">
+                  </div>
+               </div>
+            </div>
+         </div>
+         <button type="submit" class="btn btn-primary">Update Subscription</button>
+         {% else %}
+         <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+               {{ form.TotalAmount|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+               {{ form.AmountReceived|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+               {{ form.RemainingAmount|as_crispy_field }}
+            </div>
+         </div>
+         <a href="{% url 'renewsubs' sub.id %}" class="btn btn-primary">Renew Subscription</a>
+         {% endif %}
+      </form>
+   </div>
+   <div class="col-sm-5  px-0 py-2 ">
+      Notifications
+      <div class="alert  mt-1 alert-info" role="alert" id="remainingdays">
+         <span id="days-remaining"></span> days remaining in this subscription.
+      </div>
+      <div class="alert  mt-1 alert-info" role="alert" id="expiry">
+         This subscription has expired.
+      </div>
+      <div class="alert alert-danger" role="alert" id="notifyremaining">
+         <span id="amount-remaining"></span> amount remaining to receive for this subscription.
+      </div>
+   </div>
 </div>
 {% load myfilters %}
 <div class="col-lg px-5 py-3 tablecontent">
-    <h1>History</h1>
-    <table id="datatable" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Renew ID</th>
-                <th>Installation Duration</th>
-                <th>Renew Date</th>
-                <th>Expiry Date</th>
-                <th>Expiry Status</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for renew in renews %}
+   <h1>History</h1>
+   <table id="datatable" class="display" style="width:100%">
+      <thead>
+         <tr>
+            <th>Renew ID</th>
+            <th>Installation Duration</th>
+            <th>Renew Date</th>
+            <th>Expiry Date</th>
+            <th>Expiry Status</th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for renew in renews %}
             {% if renew.ExpiryDate|days_until <= 20  %}
                 {% if renew.ExpiryDate|days_until <= 0 %}
-                <tr class="expired">
+                    <tr class="expired">
                 {% else %}
-                <tr class="warn">
+                    <tr class="warn">
                 {% endif %}
             {% else %}
-                <tr class="online">
+                 <tr class="online">
             {% endif %}
-                <td>{{ renew.id |stringformat:"05d" }}</a></td>
-                <td>{{ renew.InstallDuration}}</td>
-                <td>{{ renew.RenewDate }}</td>
-                <td >{{ renew.ExpiryDate }}</td>
-                <td>
-                    {% if renew.ExpiryDate|days_until <= 0 %}
-                        Expired
-                    {% else %}
-                        Online
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-</table>
+            <td>{{ renew.id |stringformat:"05d" }}</a></td>
+            <td>{{ renew.InstallDuration}}</td>
+            <td>{{ renew.RenewDate }}</td>
+            <td >{{ renew.ExpiryDate }}</td>
+            <td>
+               {% if renew.ExpiryDate|days_until <= 0 %}
+                    Expired
+               {% else %}
+                    Online
+               {% endif %}
+            </td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
 </div>
 {% endblock content %}
