@@ -22,7 +22,7 @@ def add_customers(request):
         newcustomer_form = newcustomerform(request.POST or None)
         if newcustomer_form.is_valid():
             newcustomer_form.save();
-            return HttpResponseRedirect('addcustomers')
+            return HttpResponseRedirect('customers')
 
     context = {
         'form': newcustomer_form,

@@ -1,37 +1,123 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="card-deck p-3 m-auto text-center dash">
-   <div class="card rounded">
+
+<script>
+
+    var config = {
+      type: 'line',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          order:0,
+          fill: false,
+          backgroundColor:'#FC766AFF',
+          borderColor:'#FC766AFF',
+          pointRadius:5,
+          lineTension:0.4,
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+        responsive: true,
+        legend: {
+    	    display: false
+        },
+
+      }
+    };
+    var config2 = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ users|safe }},
+          order:0,
+          fill: false,
+          backgroundColor: [
+            '#32be8f', '#FC766AFF ', '#797ff6', '#8d57dd','#32be8f', '#FC766AFF ', '#797ff6', '#8d57dd','#32be8f', '#FC766AFF ', '#797ff6', '#8d57dd'
+          ],
+          borderColor:'#32be8f',
+          pointRadius:5,
+          lineTension:0.4,
+        }],
+        labels: {{ label|safe }}
+      },
+      options: {
+        responsive: true,
+        legend: {
+    	    display: false
+        },
+
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('chart').getContext('2d');
+      var ctx2 = document.getElementById('chartbar').getContext('2d');
+      window.myline = new Chart(ctx, config);
+      window.mybar = new Chart(ctx2, config2);
+    };
+
+</script>
+<style>
+   .card{
+      border-radius:15px;
+   }
+
+</style>
+<div class="col px-5 py-3 ">
+<h1 style="color:#797ff6;">Dashboard</h1>
+</div>
+<div class="col px-3 py-0 ">
+<div class="card-deck p-3 m-auto text-center dash" style="height:15rem;">
+   <div class="card shadow border-0" >
       <div class="card-body">
+         <h1 class="display-1">{{ customers.count }}</h1>
          <h5 class="card-title">Total Clients</h5>
-         <p class="card-text">{{ customers.count }}</p>
       </div>
    </div>
-   <div class="card rounded">
+   <div class="card shadow border-0">
       <div class="card-body">
+        <h1 class="display-1">{{ subscriptions.count }}</h1>
          <h5 class="card-title">Total Subscription</h5>
-         <p class="card-text">{{ subscriptions.count }}</p>
       </div>
    </div>
-   <div class="card rounded">
+   <div class="card  shadow border-0">
       <div class="card-body ">
+         <h1 class="display-1"> {{ totalusers }} </h1>
          <h5 class="card-title"> Total Users </h5>
-         <p class="card-text"> {{ totalusers }} </p>
+      </div>
+   </div>
+</div>
+</div>
+<div class="col px-3 py-0 ">
+<div class="card-deck p-3 m-auto text-center dash">
+   <div class="card shadow border-0">
+      <div class="card-body">
+         <h1 class="display-1"> <span class="display-4"> Rs. </span>{{ totalearned }}</h1>
+         <h5 class="card-title">Total Earned</h5>
+      </div>
+   </div>
+   <div class="card shadow border-0">
+      <div class="card-body">
+         <h1 class="display-1"><span class="display-4"> Rs. </span>{{ receive }}</h1>
+         <h5 class="card-title">Receivable Amount</h5>
       </div>
    </div>
 </div>
 <div class="card-deck p-3 m-auto text-center dash">
-   <div class="card rounded">
+   <div class="card shadow border-0">
       <div class="card-body">
-         <h5 class="card-title">Total Earned</h5>
-         <p class="card-text">{{ totalearned }}</p>
+         <h5 class="card-title">New Subscribers per Month for {{ currentyear }}</h5>
+          <canvas class="p-0 chartjs" id="chart"></canvas>
       </div>
    </div>
-   <div class="card rounded">
+   <div class="card  shadow border-0">
       <div class="card-body">
-         <h5 class="card-title">Receivable Amount</h5>
-         <p class="card-text">{{ receive }}</p>
+         <h5 class="card-title">New Users per Month for {{ currentyear }}</h5>
+         <canvas class="p-0 chartjs" id="chartbar"></canvas>
       </div>
    </div>
 </div>
+</div>
+
 {% endblock content %}

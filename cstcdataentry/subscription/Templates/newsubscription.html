@@ -49,7 +49,7 @@
 {% endblock %}
 
 <div class="col-10 px-5 py-3 ">
-    <h1>New Subscription</h1>
+    <h1 style="color:#797ff6;">New Subscription</h1>
     <form method="post" class="w-75 ">
         {% csrf_token %}
         {{ form.CustomerName| as_crispy_field }}

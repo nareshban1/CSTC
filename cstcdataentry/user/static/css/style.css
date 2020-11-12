@@ -79,7 +79,7 @@ body {
 }
 
 .navlogo:hover {
-	color: #32be8f;
+	color: #797ff6;
 }
 
 .tablecontent,
@@ -88,10 +88,16 @@ body {
 }
 
 .dash .card-title {
-	font-size: 25px;
-	color: red;
+	font-size: 30px;
+	color: #797ff6;
 }
-
+.dash .display-1 {
+	color: #FC766AFF;
+}
+.dash .display-4{
+    color: #454748;
+    font-weight:500;
+}
 .dash .card-text {
 	font-size: 30px;
 }
